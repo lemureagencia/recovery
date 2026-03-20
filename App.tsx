@@ -266,9 +266,9 @@ export default function App() {
             />
             <FeatureCard 
               number="06"
-              icon={<FileText size={24} />}
-              title="Gera contrato profissional"
-              description="Coleta dados automaticamente via formulário e gera o contrato em PDF na hora, enviando direto no WhatsApp do cliente."
+              icon={<TrendingUp size={24} />}
+              title="Curso de Captação de Leads Incluso"
+              description="Aprenda a atrair novos clientes todos os dias com o curso criado pela nossa especialista em geração de demanda. Alimente seu funil constantemente."
             />
           </div>
         </div>
@@ -301,7 +301,7 @@ export default function App() {
                 { label: "Cobra manualmente", after: "✅ Agente cobra auto" },
                 { label: "Perdendo lead", after: "🤖 IA atende 24/7" },
                 { label: "Atendendo curioso", after: "💎 Só qualificado" },
-                { label: "Dados soltos", after: "📄 Contrato auto" }
+                { label: "Sem estrutura", after: "📊 Funil validado" }
               ].map((item, idx) => (
                 <div key={idx} className={`grid grid-cols-2 border-b border-slate-100 last:border-0 ${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50'}`}>
                   <div className="p-4 md:p-6 flex items-center gap-2 md:gap-4 text-slate-500 text-[10px] md:text-base leading-tight">
@@ -379,18 +379,25 @@ export default function App() {
                   <h3 className="text-lg md:text-xl font-bold mb-6 text-slate-900">Tudo incluso na licença mensal:</h3>
                   <ul className="space-y-3 md:space-y-4 mb-8 md:mb-10">
                     {[
-                      "Agente de IA completo 24/7",
-                      "Atendimento por áudio (voz)",
-                      "Qualificação automática de leads",
-                      "Configuração feita por nossa equipe",
-                      "Geração automática de contrato em PDF",
-                      "Sem fidelidade ou multa de cancelamento"
-                    ].map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-3 text-slate-700 text-sm md:text-base font-medium">
-                        <CheckCircle size={18} className="text-green-brand flex-shrink-0 mt-0.5" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
+                      "Funil de vendas validado — Testado e funcionando no mercado de recuperação de crédito",
+                      "Agente de IA completo 24/7 — Especializado em Recuperação de crédito",
+                      "Atendimento por áudio (voz) — Entende e responde mensagens de voz",
+                      "Qualificação automática de leads — Só recebe quem vai fechar",
+                      "Curso de captação de leads — Aprenda a gerar demanda todos os dias",
+                      "Agente de IA rodando até 48h após a contratação",
+                      "Sem fidelidade ou multa de cancelamento — Cancela quando quiser"
+                    ].map((item, idx) => {
+                      const [title, desc] = item.includes(' — ') ? item.split(' — ') : [item, ''];
+                      return (
+                        <li key={idx} className="flex items-start gap-3 text-slate-700 text-sm md:text-base">
+                          <CheckCircle size={18} className="text-green-brand flex-shrink-0 mt-0.5" />
+                          <span>
+                            <strong className="font-bold text-slate-900">{title}</strong>
+                            {desc && <span className="font-medium"> — {desc}</span>}
+                          </span>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
                 
@@ -440,9 +447,11 @@ export default function App() {
           <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-6 leading-tight">
             Pare de perder leads por demora <br className="hidden md:block" /> e comece a escalar hoje.
           </h2>
-          <CTAButton className="w-full md:w-auto">
-            QUERO AUTOMATIZAR MEUS PROCESSOS
-          </CTAButton>
+          <div className="flex justify-center">
+            <CTAButton className="w-full md:w-auto">
+              QUERO AUTOMATIZAR MEUS PROCESSOS
+            </CTAButton>
+          </div>
           <div className="mt-10 flex flex-wrap justify-center gap-6 text-slate-400 font-bold uppercase tracking-widest text-[10px]">
             <div className="flex items-center gap-2"><ShieldCheck size={14} /> 100% SEGURO</div>
             <div className="flex items-center gap-2"><Zap size={14} /> ATIVAÇÃO EM 48H</div>
