@@ -213,7 +213,7 @@ export default function App() {
             <Logo className="scale-110 md:scale-150 transform origin-center" isHero={true} />
           </div>
           <h1 className="text-3xl md:text-6xl font-black text-slate-900 mb-6 leading-tight">
-            Transforme seu negócio de limpa nome em uma <span className="text-blue-brand">máquina de vendas automatizada</span>
+            Transforme seu negócio de limpa nome em uma <span className="text-blue-brand">máquina de vendas com FUNIL VALIDADO</span>
           </h1>
           <p className="text-lg md:text-xl text-slate-600 mb-8 md:mb-10 max-w-3xl mx-auto">
             O Agente de IA que vende por você (mesmo quando você está dormindo).
