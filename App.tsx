@@ -17,11 +17,11 @@ import {
 } from 'lucide-react';
 
 // --- Constants ---
-const WHATSAPP_NUMBER = "557181913493";
-const WHATSAPP_MESSAGE = encodeURIComponent("olá, vim do site da recovery e quero mais informações sobre o Agente recovery");
+const WHATSAPP_NUMBER = "5511978176498";
+const WHATSAPP_MESSAGE = encodeURIComponent("olá, vim do site da reciax e quero mais informações sobre o Agente reciax");
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
 const VIDEO_URL = "https://agencialemure.com.br/wp-content/uploads/2026/01/video-para-site01-2.webm";
-const LOGO_URL = "logo.webp"; 
+const LOGO_URL = "https://jtxusseogseghqvjigft.supabase.co/storage/v1/object/public/videossistema/logo01.webp"; 
 
 // --- Components ---
 
@@ -29,10 +29,10 @@ const Logo: React.FC<{ className?: string; isHero?: boolean }> = ({ className, i
   <div className={`flex items-center ${className}`}>
     <img 
       src={LOGO_URL} 
-      alt="Recovery IA Logo" 
+      alt="Reciax Logo" 
       className="h-10 md:h-12 w-auto object-contain"
       // @ts-ignore
-      fetchpriority={isHero ? "high" : "auto"}
+      fetchPriority={isHero ? "high" : "auto"}
       decoding="async"
       onError={(e) => {
         e.currentTarget.style.display = 'none';
@@ -46,7 +46,7 @@ const Logo: React.FC<{ className?: string; isHero?: boolean }> = ({ className, i
                   <path d="M6.62 10.79a15.15 15.15 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
                 </svg>
               </div>
-              <span class="text-[#1800ad] font-bold text-xl md:text-2xl tracking-tighter uppercase">RECOVERY IA</span>
+              <span class="text-[#1800ad] font-bold text-xl md:text-2xl tracking-tighter uppercase">RECIAX</span>
             </div>
           `;
         }
@@ -190,6 +190,71 @@ const FAQItem: React.FC<{ question: string; answer: string }> = ({ question, ans
   );
 };
 
+const LeadForm: React.FC = () => {
+  const [name, setName] = useState('');
+  const [whatsapp, setWhatsapp] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      await fetch('https://n8n-n8n.iyrj6w.easypanel.host/webhook/20a98501-1bce-4241-8116-12c2d457badf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, whatsapp }),
+      });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    } finally {
+      setIsSubmitting(false);
+      window.location.href = `https://wa.me/5511978176498?text=${WHATSAPP_MESSAGE}`;
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-slate-100 max-w-md mx-auto relative z-10">
+      <h3 className="text-xl font-bold text-slate-900 mb-4 text-center">Fale com um especialista agora</h3>
+      <div className="space-y-4">
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-1">Seu Nome</label>
+          <input 
+            type="text" 
+            id="name" 
+            required 
+            value={name} 
+            onChange={(e) => setName(e.target.value)} 
+            className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-brand focus:border-blue-brand outline-none transition-all"
+            placeholder="Digite seu nome"
+          />
+        </div>
+        <div>
+          <label htmlFor="whatsapp" className="block text-sm font-medium text-slate-700 mb-1">Seu WhatsApp</label>
+          <input 
+            type="tel" 
+            id="whatsapp" 
+            required 
+            value={whatsapp} 
+            onChange={(e) => setWhatsapp(e.target.value)} 
+            className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-brand focus:border-blue-brand outline-none transition-all"
+            placeholder="(00) 00000-0000"
+          />
+        </div>
+        <button 
+          type="submit" 
+          disabled={isSubmitting}
+          className="w-full bg-[#00c853] text-white font-bold py-4 rounded-lg hover:bg-green-600 transition-all flex justify-center items-center gap-2 disabled:opacity-70"
+        >
+          {isSubmitting ? 'ENVIANDO...' : 'QUERO AUTOMATIZAR AGORA'}
+        </button>
+      </div>
+    </form>
+  );
+};
+
 // --- Main App ---
 
 export default function App() {
@@ -218,14 +283,16 @@ export default function App() {
           <p className="text-lg md:text-xl text-slate-600 mb-8 md:mb-10 max-w-3xl mx-auto">
             O Agente de IA que vende por você (mesmo quando você está dormindo).
           </p>
-          <div className="mb-6 md:mb-8 flex justify-center">
-            <CTAButton className="w-full md:w-auto">
-              QUERO AUTOMATIZAR MEUS PROCESSOS
-            </CTAButton>
-          </div>
           
           {/* Smartphone Video Mockup */}
           <SmartphoneFrame />
+        </div>
+      </section>
+
+      {/* Lead Capture Section */}
+      <section className="bg-slate-100 py-16 px-6 border-y border-slate-200">
+        <div className="max-w-6xl mx-auto">
+          <LeadForm />
         </div>
       </section>
 
@@ -287,10 +354,10 @@ export default function App() {
           <div className="overflow-hidden rounded-2xl md:rounded-3xl shadow-2xl border border-slate-100">
             <div className="grid grid-cols-2">
               <div className="red-brand text-white p-4 md:p-6 text-center font-bold uppercase tracking-wider text-[10px] md:text-sm">
-                SEM A RECOVERY.IA
+                SEM A RECIAX
               </div>
               <div className="blue-brand text-white p-4 md:p-6 text-center font-bold uppercase tracking-wider text-[10px] md:text-sm relative">
-                COM A RECOVERY.IA
+                COM A RECIAX
               </div>
             </div>
 
@@ -465,7 +532,7 @@ export default function App() {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <Logo className="opacity-70 grayscale hover:grayscale-0 transition-all" />
           <p className="text-slate-400 text-xs text-center md:text-right">
-            &copy; {new Date().getFullYear()} Recovery.IA - Tecnologia para Recuperação de Crédito.
+            &copy; {new Date().getFullYear()} Reciax - Tecnologia para Recuperação de Crédito.
           </p>
         </div>
       </footer>
